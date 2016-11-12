@@ -1,9 +1,5 @@
 import sys
-
-
-mystring = "Peter Carter, chief executive of the Royal College of Nursing, said"
-
-splitlist = mystring.split()
+import os
 
 
 def first_vowel_index(word):
@@ -69,6 +65,8 @@ def pig_latin_word(word):
 		first_vowel = first_vowel_index(word)
 		
 		word = word[first_vowel:] + word [:first_vowel] + "ay" + punctuation_holder
+		
+		word = word.lower()
 	
 		
 		if capital_flag == True:
@@ -82,18 +80,26 @@ def pig_latin_word(word):
 
 def main():
 
-	user_string = 'Do you like cheese and making trash potatoes!'
+	input_file = open(sys.argv[1], "r")
 	
-	new_string = ""
+	output_file = open(sys.argv[2], "w")
 	
 	
-	word_list = user_string.split()
+	for line in input_file:
 	
-	for word in word_list:
-	
-		new_string = new_string + pig_latin_word(word) + " "
+		user_string = line
 		
-	print (new_string)
+		user_string = user_string.rstrip()
+			
+		new_string = ""
+	
+		word_list = user_string.split()
+	
+		for word in word_list:
+	
+			new_string = new_string + pig_latin_word(word) + " "
+		
+		output_file.write(new_string + "\n")
 	
 	
 
