@@ -25,6 +25,57 @@ def first_vowel_index(word):
 	return False
 
 
+def strip_punctuation(word):
+
+	"""
+	This function strips the punctation from the beginning and end of the word.
+	
+	It returns a list containing the front and end punctuation as well as the stripped word.
+
+	Also does the same for numeric characters.
+	"""
+
+	punctuation_list = [".", ",", "?", "!",";", ":", "'", '"', "(", ")", "<", ">", '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', "“"]
+
+	punctuation = []
+	
+	front_punctuation = ""
+	
+	end_punctuation = ""
+	
+	
+	for char in word: #front punctuation
+	
+		if char not in punctuation_list:
+		
+			break
+			
+		else:
+		
+			front_punctuation = front_punctuation+char
+			
+					
+	for char in reversed(word): #end punctuation
+	
+		if char not in punctuation_list:
+		
+			break
+			
+		else:
+		
+			end_punctuation = end_punctuation+char
+			
+	#strip punctuation from the word		
+	no_punctuation_word = word[len(front_punctuation):len(word)-len(end_punctuation)]
+			
+	end_punctuation = end_punctuation[::-1] #reverse end punctuation
+			
+	return [front_punctuation, end_punctuation, no_punctuation_word]
+	
+	
+
+
+
 def pig_latin_word(word):
 
 	"""
@@ -36,29 +87,23 @@ def pig_latin_word(word):
 	first letter of the new word will also be a capital in this case.
 	
 	"""
-
-	vowel_list = ["a", "e", "i", "o", "u"]
-
-	punctuation_list = [".", ",", "?", "!",";", ":", "'", '"']
 	
+	
+	if is_valid_word(word) ==False:
+	
+		return word
+		
+
+	vowel_list = ["a", "e", "i", "o", "u"]	
 	capital_flag = False
-	punctuation_holder = ""
 	word_length = len(word)
-	quotation_holder = ""
+	punctuation_list = strip_punctuation(word)
 	
-	if word[word_length-1] in punctuation_list:  #if the last character is a punctuation mark
+
+	front_punctuation = punctuation_list[0]
+	end_punctuation = punctuation_list[1]
+	word = punctuation_list[2]	
 	
-		punctuation_holder = word[word_length-1] #store the punctuation mark in a variable
-		
-		word = word[0:word_length-1] #cut the punctuation mark off the end of the word
-		
-	if word[0] == "'" or word[0] == '"':
-	
-		quotation_holder = word[0]
-		
-		word = word[1:]
-		
-		
 		
 	if word[0].isupper() == True: 
 	
@@ -66,13 +111,13 @@ def pig_latin_word(word):
 	
 	if word[0].lower() in vowel_list: #if the word begins with a vowel
 	
-		word = word + "way" + punctuation_holder 
+		word = word + "way"
 
 	else:
 	
 		first_vowel = first_vowel_index(word)
 		
-		word = word[first_vowel:] + word [:first_vowel] + "ay" + punctuation_holder
+		word = word[first_vowel:] + word [:first_vowel] + "ay"
 		
 		word = word.lower()
 	
@@ -83,8 +128,10 @@ def pig_latin_word(word):
 			first_letter = first_letter.upper()
 			word = first_letter + word[1:]
 			
-	return quotation_holder + word
-
+	return front_punctuation + word + end_punctuation
+	
+	
+	
 def pig_latin_sentence(sentence):
 
 	"""
@@ -95,7 +142,7 @@ def pig_latin_sentence(sentence):
 	Each word in the original is separated by a single space
 	"""
 		
-	sentence = sentence.rstrip() #get rid of newline characters etc.
+	#sentence = sentence.rstrip() #get rid of newline characters etc.
 		
 	new_string = ""
 
@@ -104,14 +151,48 @@ def pig_latin_sentence(sentence):
 
 	for word in word_list:
 
-		new_string = new_string + pig_latin_word(word) + " "
+		new_string = new_string+ pig_latin_word(word) + " "
 		
 	return new_string[:len(new_string)-1] #cut off final space
 
+def is_valid_word(word):
+
+	"""
+	Checks that word contains at least one alphabetical character.
+	
+	"""
+
+	for char in word:
+	
+		if char.lower() in 'abcdefghijklmnopqrstuvwxyz':
+		
+			return True
+
+	else:
+	
+		return False
+
 	
 def main():
+	
 
-	input_file = open(sys.argv[1], "r")
+
+	try:
+
+		input_file = open(sys.argv[1], "r")
+		
+		
+	except:
+	
+		print ("Error : No file with that name found")
+		return
+	
+	assert sys.argv[1][len(sys.argv[1])-4:] == ".txt", "Error: Please enter a .txt file as input"
+
+	if os.path.isfile(sys.argv[2]) == True:
+	
+		print ("Error: There is already a file with that name.")
+		return
 	
 	output_file = open(sys.argv[2], "w")
 	
@@ -120,7 +201,9 @@ def main():
 		sentence = pig_latin_sentence(line)
 		
 		output_file.write(sentence + "\n")
-	
+		
+		
+
 	
 	
 if __name__ == '__main__':
@@ -129,6 +212,14 @@ if __name__ == '__main__':
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	
 	
