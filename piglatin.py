@@ -7,7 +7,6 @@ def first_vowel_index(word):
 	"""
 	This function returns the index of the first vowel in a word
 	
-	
 	e.g. first_vowel_index('trash') = 2
 	
 	"""
@@ -35,7 +34,8 @@ def strip_punctuation(word):
 	Also does the same for numeric characters.
 	"""
 
-	punctuation_list = [".", ",", "?", "!",";", ":", "'", '"', "(", ")", "<", ">", '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', "“", "”"]
+	punctuation_list = [".", ",", "?", "!",";", ":", "'", '"', "(", ")", "<", ">", \
+	 '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', "“", "”"]
 
 	punctuation = []
 	
@@ -175,12 +175,10 @@ def is_valid_word(word):
 	
 def main():
 	
-
 	try:
 
 		input_file = open(sys.argv[1], "r")
-		
-		
+			
 	except:
 	
 		print ("Error : No file with that name found")
@@ -190,7 +188,7 @@ def main():
 	assert sys.argv[2][len(sys.argv[2])-4:] == ".txt", "Error: Please enter a .txt file as output"
 
 
-	if os.path.isfile(sys.argv[2]) == True:
+	if os.path.isfile(sys.argv[2]) == True: #Make sure we don't overwrite an existing file
 	
 		print ("Error: There is already a file with that name.")
 		return
@@ -210,17 +208,4 @@ def main():
 if __name__ == '__main__':
 
 	main()
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
 	
