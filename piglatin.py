@@ -73,9 +73,6 @@ def strip_punctuation(word):
 	return [front_punctuation, end_punctuation, no_punctuation_word]
 	
 	
-
-
-
 def pig_latin_word(word):
 
 	"""
@@ -129,8 +126,7 @@ def pig_latin_word(word):
 			word = first_letter + word[1:]
 			
 	return front_punctuation + word + end_punctuation
-	
-	
+		
 	
 def pig_latin_sentence(sentence):
 
@@ -200,10 +196,7 @@ def main():
 		sentence = pig_latin_sentence(line)
 		
 		output_file.write(sentence + "\n")
-		
-		
-
-	
+			
 	
 if __name__ == '__main__':
 
