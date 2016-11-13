@@ -176,7 +176,6 @@ def is_valid_word(word):
 def main():
 	
 
-
 	try:
 
 		input_file = open(sys.argv[1], "r")
@@ -188,6 +187,8 @@ def main():
 		return
 	
 	assert sys.argv[1][len(sys.argv[1])-4:] == ".txt", "Error: Please enter a .txt file as input"
+	assert sys.argv[2][len(sys.argv[2])-4:] == ".txt", "Error: Please enter a .txt file as output"
+
 
 	if os.path.isfile(sys.argv[2]) == True:
 	
