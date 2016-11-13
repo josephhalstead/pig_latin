@@ -1,5 +1,5 @@
 import unittest
-from piglatin import pig_latin_word, first_vowel_index, pig_latin_sentence, strip_punctuation
+from piglatin import pig_latin_word, first_vowel_index, pig_latin_sentence, strip_punctuation, is_valid_word
 
 
 class TestPigLatin(unittest.TestCase):
@@ -49,8 +49,27 @@ class TestPigLatin(unittest.TestCase):
 		
 		self.assertEqual(pig_latin_sentence("The quick brown fox jumped over the 'lazy dog'!") , "Ethay uickqay ownbray oxfay umpedjay overway ethay 'azylay ogday'!")
 		
-		
-		
+	def test_is_valid_word(self):
+	
+		self.assertEqual(is_valid_word("abc"), True)
+		self.assertEqual(is_valid_word("!abc"), True)
+		self.assertEqual(is_valid_word("8921"), False)
+		self.assertEqual(is_valid_word("!!!"), False)
+		self.assertEqual(is_valid_word("a"), True)
+
+	
+	def test_strip_punctuation(self):
+	
+		word1 = strip_punctuation("!!abc:?")
+		word2 = strip_punctuation('"In?')
+	
+		self.assertEqual(word1[0], "!!")
+		self.assertEqual(word1[1], ":?")
+		self.assertEqual(word1[2], "abc")
+		self.assertEqual(word2[0], '"')
+		self.assertEqual(word2[1], "?")
+		self.assertEqual(word2[2], "In")
+	
 		
 if __name__ == '__main__':
 	suite = unittest.TestLoader().loadTestsFromTestCase(TestPigLatin)
